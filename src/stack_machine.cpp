@@ -28,21 +28,63 @@ namespace xi {
 // class PlusOp
 //==============================================================================
 
+    int PlusOp::operation(char op, int a, int b, int /*c*/) // < just commented unused argument. This does not affect the code anyhow.
+    {
+        if (op != '+')
+            throw std::logic_error("Operation other than Plus (+) are not supported");
 
-int PlusOp::operation(char op, int a, int b, int /*c*/) // < just commented unused argument. This does not affect the code anyhow.
-{
-    if(op != '+')
-        throw std::logic_error("Operation other than Plus (+) are not supported");
+        // here we just ignore unused operands
+        return a + b;
+    }
 
-    // here we just ignore unused operands
-    return a + b;
-}
+    IOperation::Arity PlusOp::getArity() const
+    {
+        return arDue;
+    }
 
-IOperation::Arity PlusOp::getArity() const
-{
-    return arDue;
-}
+//==============================================================================
+// class MultOp
+//==============================================================================
 
+    int MultOp::operation(char op, int a, int b, int /*c*/)
+    {
+        if (op != '*')
+            throw std::logic_error("Operation other than Mult (*) are not supported");
+
+        return a * b;
+    }
+
+//==============================================================================
+// class ChoiceOp
+//==============================================================================
+
+    int ChoiceOp::operation(char op, int a, int b, int c)
+    {
+        if (op != '?')
+            throw std::logic_error("Operation other than Choice (?) are not supported");
+
+        return a != 0 ? b : c;
+    }
+
+
+    IOperation::Arity ChoiceOp::getArity() const
+    {
+        return arTre;
+    }
+//==============================================================================
+// class AssignOp
+//==============================================================================
+
+    int AssignOp::operation(char op, int a, int /*b*/, int /*c*/)
+    {
+        if (op != '=')
+            throw std::logic_error("Operation other than Assign (=) are not supported");
+    }
+
+    IOperation::Arity AssignOp::getArity() const
+    {
+        return arUno;
+    }
 
 //==============================================================================
 // class StackMachine

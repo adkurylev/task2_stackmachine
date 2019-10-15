@@ -10,14 +10,60 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
+#include <stdexcept>
 #include "int_stack.h"
-
-// TODO: add necessary headers here
-// #include <...
 
 namespace xi {
 
-// TODO: add method definitions here
+    IntStack::IntStack(size_t sz)
+    {
+        _stack = new int[sz];
+        _ssize = sz;
+        _head = 0;
+    }
 
+    IntStack::~IntStack()
+    {
+        delete[] _stack;
+    }
+
+    void IntStack::push(int el)
+    {
+        if (isFull())
+            throw std::logic_error("Stack is full");
+
+        _stack[_head++] = el;
+    }
+
+    int IntStack::pop()
+    {
+        if (isEmpty())
+            throw std::logic_error("Stack is empty");
+
+        return _stack[--_head];
+    }
+
+    bool IntStack::isFull() const
+    {
+        return _ssize == _head;
+    }
+
+    bool IntStack::isEmpty() const
+    {
+        return _head == 0;
+    }
+
+    int IntStack::top()
+    {
+        if (isEmpty())
+            throw std::logic_error("Stack is empty");
+
+        return _stack[_head - 1];
+    }
+
+    void IntStack::clear()
+    {
+        _head = 0;
+    }
 } // namespace xi
 
