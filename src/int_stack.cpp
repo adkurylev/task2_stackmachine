@@ -19,7 +19,7 @@ namespace xi {
     {
         _stack = new int[sz];
         _ssize = sz;
-        _head = 0;
+        _head = (size_t) -1;
     }
 
     IntStack::~IntStack()
@@ -32,7 +32,7 @@ namespace xi {
         if (isFull())
             throw std::logic_error("Stack is full");
 
-        _stack[_head++] = el;
+        _stack[++_head] = el;
     }
 
     int IntStack::pop()
@@ -40,17 +40,17 @@ namespace xi {
         if (isEmpty())
             throw std::logic_error("Stack is empty");
 
-        return _stack[--_head];
+        return _stack[_head--];
     }
 
     bool IntStack::isFull() const
     {
-        return _ssize == _head;
+        return _ssize == _head + 1;
     }
 
     bool IntStack::isEmpty() const
     {
-        return _head == 0;
+        return _head == (size_t) -1;
     }
 
     int IntStack::top()
@@ -58,12 +58,12 @@ namespace xi {
         if (isEmpty())
             throw std::logic_error("Stack is empty");
 
-        return _stack[_head - 1];
+        return _stack[_head];
     }
 
     void IntStack::clear()
     {
-        _head = 0;
+        _head = (size_t) -1;
     }
 } // namespace xi
 
