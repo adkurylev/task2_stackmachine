@@ -154,7 +154,7 @@ TEST_F(StackMachineTest, undefOper1)
 TEST_F(StackMachineTest, undefOper2)
 {
     // any undefined substring should be regarded as an exception
-    EXPECT_THROW(_sm.calculate("10 3 -hello"), std::exception);
+    EXPECT_THROW(_sm.calculate("10 3 0hello"), std::exception);
 }
 
 
